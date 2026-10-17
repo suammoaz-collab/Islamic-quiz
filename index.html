@@ -1,387 +1,464 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>مسابقة المعرفة الإسلامية 🌙</title>
-  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Tajawal', sans-serif; }
-    body { background: linear-gradient(135deg, #0f2027, #203a43, #2c5364); color: #fff; min-height: 100vh; direction: rtl; padding: 15px; }
-    .container { max-width: 650px; margin: 0 auto; }
-    .hidden { display: none !important; }
-    .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.88); display: flex; justify-content: center; align-items: center; z-index: 1000; padding: 20px; }
-    .modal-card { background: #1e293b; padding: 25px; border-radius: 20px; width: 100%; text-align: center; border: 1px solid #38bdf8; max-height: 90vh; overflow-y: auto; }
-    .modal-card input { width: 100%; padding: 12px; margin: 15px 0; border-radius: 10px; border: 1px solid #334155; background: #0f172a; color: #fff; font-size: 1rem; text-align: center; }
-    .btn { padding: 12px; border: none; border-radius: 12px; font-size: 1rem; font-weight: bold; cursor: pointer; width: 100%; background: #10b981; color: #fff; transition: 0.2s; }
-    .btn:active { transform: scale(0.98); }
-    .btn-whatsapp { background: #25d366; color: #fff; margin-top: 10px; }
-    .app-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; background: rgba(255,255,255,0.08); padding: 10px 15px; border-radius: 12px; flex-wrap: wrap; gap: 10px; }
-    .stat-badge { background: #f39c12; color: #111; padding: 5px 12px; border-radius: 20px; font-weight: bold; font-size: 0.85rem; }
-    .category-card { background: #1e293b; border: 1px solid #334155; border-radius: 16px; padding: 20px; text-align: center; margin-bottom: 15px; cursor: pointer; position: relative; }
-    .category-card.locked { opacity: 0.6; cursor: not-allowed; border-color: #ef4444; }
-    .category-card h3 { color: #38bdf8; margin: 10px 0 5px; }
-    .lock-badge { position: absolute; top: 10px; left: 10px; background: #ef4444; color: #fff; padding: 3px 8px; border-radius: 10px; font-size: 0.75rem; font-weight: bold; }
-    .quiz-card { background: #1e293b; border-radius: 20px; padding: 20px; border: 1px solid #334155; }
-    .option-btn { background: #0f172a; border: 1px solid #334155; color: #fff; padding: 14px; border-radius: 12px; text-align: right; font-size: 1rem; cursor: pointer; width: 100%; margin-bottom: 10px; display: block; }
-    .option-btn.correct { background: #10b981 !important; border-color: #10b981; }
-    .option-btn.wrong { background: #ef4444 !important; border-color: #ef4444; }
-    .progress-bar { height: 8px; background: #334155; border-radius: 5px; margin-bottom: 15px; overflow: hidden; }
-    .progress-fill { height: 100%; background: #f59e0b; width: 0%; transition: 0.3s; }
-    .timer-text { color: #f59e0b; font-weight: bold; float: left; }
-    .explanation-box { background: #0f172a; border-right: 4px solid #38bdf8; padding: 15px; border-radius: 10px; margin-top: 15px; text-align: right; }
-    .explanation-box h4 { color: #38bdf8; margin-bottom: 5px; font-size: 0.95rem; }
-    .explanation-box p { font-size: 0.9rem; color: #cbd5e1; line-height: 1.5; }
-    
-    .levels-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(70px, 1fr)); gap: 10px; margin-top: 15px; max-height: 300px; overflow-y: auto; padding: 5px; }
-    .level-btn { background: #0f172a; border: 1px solid #334155; color: #fff; padding: 12px; border-radius: 10px; font-weight: bold; cursor: pointer; text-align: center; }
-    .level-btn.unlocked { border-color: #10b981; background: #1e293b; }
-    .level-btn.locked { background: #111827; color: #475569; border-color: #1f2937; cursor: not-allowed; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>مسابقة المعرفة الإسلامية</title>
+<style>
+:root{--bg:#0b1220;--card:#131f32;--green:#28c76f;--gold:#ffd166;--blue:#56b6ff;--text:#f4f7fb;--muted:#a9b8cc;--red:#ff6b6b}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(circle at top,#142945,var(--bg) 60%);font-family:Tahoma,Arial,sans-serif;color:var(--text);min-height:100vh}
+header{padding:22px 16px;text-align:center;background:#0a1424;border-bottom:1px solid #263c58;position:sticky;top:0;z-index:4}
+h1{margin:0 0 8px;font-size:clamp(22px,4vw,34px)}
+header p{margin:0;color:var(--muted)}
+.wrap{width:min(1050px,94%);margin:22px auto 50px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:18px}
+.stat,.panel,.category,.question-card{background:linear-gradient(145deg,var(--card),#101a2a);border:1px solid #2a3d58;border-radius:16px;padding:16px}
+.stat{text-align:center}
+.stat b{display:block;font-size:24px;color:var(--gold);margin-top:5px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.category{transition:.2s}
+.category:hover{transform:translateY(-2px);border-color:var(--blue)}
+.category h3{margin:0 0 8px}
+.category p{color:var(--muted);min-height:40px;font-size:14px;line-height:1.7}
+.pill{display:inline-block;border-radius:30px;padding:5px 10px;background:#233751;color:#d7e7fa;font-size:12px;margin:3px 0 10px}
+button{border:0;border-radius:10px;padding:12px 16px;font:inherit;font-weight:bold;cursor:pointer;background:var(--green);color:#06140b}
+button:disabled{background:#46566b;color:#c1c9d4;cursor:not-allowed}
+.secondary{background:#263b57;color:var(--text)}
+.gold{background:var(--gold);color:#271b00}
+.hidden{display:none!important}
+.topline{display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:14px}
+.progress{height:9px;border-radius:20px;background:#24354b;overflow:hidden;margin:12px 0 18px}
+.progress div{height:100%;width:0;background:linear-gradient(90deg,var(--green),var(--blue));transition:width .25s}
+.question-card{padding:clamp(18px,4vw,30px)}
+.question-card h2{font-size:clamp(19px,3vw,27px);line-height:1.7;margin:0 0 20px}
+.answers{display:grid;gap:10px}
+.answer{background:#1a2b43;color:var(--text);text-align:right;border:1px solid #304863;line-height:1.6}
+.answer:hover:not(:disabled){border-color:var(--blue);background:#203a59}
+.answer.correct{background:#123c2a;border-color:var(--green)}
+.answer.wrong{background:#48232b;border-color:var(--red)}
+.feedback{margin-top:16px;padding:14px;border-radius:10px;line-height:1.8;background:#0e1929;color:var(--muted)}
+.feedback strong{color:var(--gold)}
+.row{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.small{font-size:13px;color:var(--muted);line-height:1.8}
+.notice{padding:14px;border-radius:12px;background:#332b17;border:1px solid #6d5926;color:#ffe7a0;line-height:1.8;margin:16px 0}
+.result{text-align:center}
+.result h2{color:var(--gold)}
+.result .big{font-size:44px;font-weight:bold;margin:10px}
+@media(max-width:540px){.stats{grid-template-columns:1fr 1fr}.stats .stat:last-child{grid-column:1/-1}.category p{min-height:0}}
+</style>
 </head>
 <body>
 
-  <!-- شاشة التسجيل -->
-  <div id="login-screen" class="modal-overlay">
-    <div class="modal-card">
-      <div style="font-size: 3rem;">🌙</div>
-      <h2>مسابقة المعرفة الإسلامية</h2>
-      <p style="color: #94a3b8; font-size: 0.9rem; margin-top: 5px;">ادخل اسمك لتبدأ التحدي وتجمع النقاط!</p>
-      <input type="text" id="username-input" placeholder="اكتب اسمك هنا..." />
-      <button class="btn" onclick="login()">دخول 🚀</button>
-    </div>
-  </div>
+<header>
+<h1>📚 مسابقة المعرفة الإسلامية</h1>
+<p>تعلّم، اختبر معلوماتك، واجمع النقاط لفتح التحديات</p>
+</header>
 
-  <div class="container">
-    <!-- الهيدر والمعلومات -->
-    <header class="app-header hidden" id="app-header">
-      <span id="welcome-msg" style="font-weight: bold;">أهلاً بك</span>
-      <div style="display: flex; gap: 8px; align-items: center;">
-        <div class="stat-badge">⭐ <span id="user-score">0</span> نقطة</div>
-        <div class="stat-badge" style="background:#38bdf8; color:#0f172a;" id="user-title">مبتدئ</div>
-      </div>
-    </header>
+<main class="wrap">
 
-    <!-- الصفحة الرئيسية للأقسام -->
-    <main id="main-content" class="hidden">
-      <h2 style="text-align: center; margin-bottom: 15px;">اختر قسماً وابدأ التحدي ⚔️</h2>
-      <div id="categories-grid"></div>
-    </main>
+<section id="home">
+<div class="stats">
+<div class="stat">⭐ مجموع النقاط<b id="score">0</b></div>
+<div class="stat">✅ مستويات مكتملة<b id="completed">0</b></div>
+<div class="stat">🧠 بنك الأسئلة<b id="bankCount">0</b></div>
+</div>
 
-    <!-- شاشة اختيار المستوى -->
-    <section id="levels-screen" class="hidden">
-      <button class="btn" style="background:#334155; margin-bottom: 15px; width: auto; padding: 8px 15px;" onclick="backToHome()">⬅️ رجوع للأقسام</button>
-      <div class="quiz-card">
-        <h3 id="levels-title" style="color:#38bdf8; text-align:center;">اختر المستوى</h3>
-        <p style="text-align:center; color:#94a3b8; font-size:0.85rem; margin-top:5px;">يجب إنهاء المستوى بالترتيب لفتح التالي!</p>
-        <div class="levels-grid" id="levels-container"></div>
-      </div>
-    </section>
+<div class="notice">
+<strong>ملاحظة:</strong>
+الأسئلة المعروضة تُولّد بصيغ مختلفة من مجموعة أساسية. يلزم التحقق من المراجع ومراجعة الأسئلة قبل اعتمادها للنشر.
+</div>
 
-    <!-- شاشة الأسئلة -->
-    <section id="quiz-screen" class="hidden">
-      <button class="btn" style="background:#334155; margin-bottom: 15px; width: auto; padding: 8px 15px;" onclick="backToLevels()">⬅️ رجوع للمستويات</button>
-      <div class="quiz-card">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-          <span id="q-meta" style="color: #94a3b8; font-size: 0.85rem;"></span>
-          <span id="timer-display" class="timer-text">⏱️ 15 ثانية</span>
-        </div>
-        <div class="progress-bar"><div id="progress-fill" class="progress-fill"></div></div>
-        
-        <h3 id="q-text" style="margin-bottom: 20px; font-size: 1.2rem;">السؤال هنا...</h3>
-        <div id="options-container"></div>
+<div class="grid" id="categories"></div>
+<p class="small">يُحفظ التقدم على نفس الجهاز والمتصفح. مسح بيانات المتصفح قد يمسح التقدم.</p>
+</section>
 
-        <!-- صندوق الشرح والسبب والدليل -->
-        <div id="explanation-container" class="explanation-box hidden">
-          <h4 id="exp-title">💡 التوضيح والدليل:</h4>
-          <p id="exp-text"></p>
-          <button class="btn" style="margin-top: 12px; background: #38bdf8; color: #0f172a;" onclick="nextStep()">السؤال التالي ➡️</button>
-        </div>
-      </div>
-    </section>
+<section id="levels" class="hidden">
+<div class="topline">
+<h2 id="levelsTitle">المستويات</h2>
+<button class="secondary" onclick="goHome()">العودة للأقسام</button>
+</div>
+<p class="small" id="levelsDesc"></p>
+<div class="grid" id="levelsGrid"></div>
+</section>
 
-    <!-- شاشة نهاية المستوى ومشاركة الواتساب -->
-    <section id="result-screen" class="modal-overlay hidden">
-      <div class="modal-card">
-        <div style="font-size: 3rem;">🏆</div>
-        <h2>أبدعت يا بطل!</h2>
-        <p id="result-summary" style="color: #cbd5e1; margin: 15px 0;"></p>
-        <button class="btn btn-whatsapp" onclick="shareOnWhatsApp()">💬 شارك نتيجتك على واتساب</button>
-        <button class="btn" style="margin-top: 10px; background: #334155;" onclick="backToLevelsFromModal()">العودة للمستويات</button>
-      </div>
-    </section>
-  </div>
+<section id="quiz" class="hidden">
+<div class="topline">
+<span id="quizMeta"></span>
+<span>النقاط: <b id="quizScore">0</b></span>
+<button class="secondary" onclick="quitQuiz()">خروج</button>
+</div>
+<div class="progress"><div id="bar"></div></div>
+<div class="question-card">
+<div class="small" id="qCounter"></div>
+<h2 id="questionText"></h2>
+<div class="answers" id="answers"></div>
+<div id="feedback" class="feedback hidden"></div>
+<div class="row">
+<button id="nextBtn" class="gold hidden" onclick="nextQuestion()">السؤال التالي ←</button>
+</div>
+</div>
+</section>
 
-  <!-- نافذة الصلاة على النبي -->
-  <div id="salawat-modal" class="modal-overlay hidden">
-    <div class="modal-card" style="border-color: #f59e0b;">
-      <div style="font-size: 2.5rem;">✨</div>
-      <h2 style="color: #f59e0b; margin: 10px 0;">صلِّ على النبي الكريم</h2>
-      <p style="margin-bottom: 15px;">اللَّهُمَّ صَلِّ وَسَلِّمْ عَلَى نَبِيِّنَا مُحَمَّدٍ</p>
-      <button class="btn" onclick="closeSalawat()">عليه أفضل الصلاة والسلام 💖</button>
-    </div>
-  </div>
+<section id="result" class="hidden">
+<div class="panel result">
+<h2 id="resultTitle">انتهى المستوى!</h2>
+<div class="big" id="resultScore">0/10</div>
+<p id="resultText"></p>
+<div class="row" style="justify-content:center">
+<button onclick="backToLevels()">العودة للمستويات</button>
+<button class="secondary" onclick="goHome()">الأقسام الرئيسية</button>
+</div>
+</div>
+</section>
 
-  <script>
-    let currentUser = localStorage.getItem('q_user') || null;
-    let userScore = parseInt(localStorage.getItem('q_score')) || 0;
-    
-    // حفظ المستويات المكتملة لكل قسم محلياً
-    let maxUnlockedLevels = JSON.parse(localStorage.getItem('q_unlocked')) || {
-      sahaba: 1, prophets: 1, quran_miracles: 1, battles: 1, fiqh: 1, hard_quiz: 1
-    };
+</main>
 
-    let completedLevelsCount = parseInt(localStorage.getItem('q_completed_total')) || 0;
-    
-    // الأصوات
-    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    function playSound(type) {
-      if (audioCtx.state === 'suspended') audioCtx.resume();
-      const osc = audioCtx.createOscillator();
-      const gain = audioCtx.createGain();
-      osc.connect(gain);
-      gain.connect(audioCtx.destination);
-      if (type === 'correct') {
-        osc.frequency.setValueAtTime(523.25, audioCtx.currentTime);
-        osc.frequency.setValueAtTime(659.25, audioCtx.currentTime + 0.1);
-        gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
-      } else {
-        osc.frequency.setValueAtTime(220, audioCtx.currentTime);
-        osc.frequency.setValueAtTime(174.61, audioCtx.currentTime + 0.15);
-        gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
-      }
-      osc.start();
-      osc.stop(audioCtx.currentTime + 0.3);
-    }
+<script>
+const CATEGORIES = [
+{id:'companions',name:'الصحابة',icon:'🤝',desc:'معلومات عن الصحابة ومواقف من سيرتهم.',levels:50,required:0},
+{id:'prophets',name:'الأنبياء',icon:'🕊️',desc:'قصص الأنبياء والمعلومات القرآنية عنهم.',levels:50,required:0},
+{id:'quran',name:'القرآن الكريم',icon:'📖',desc:'السور والآيات ومعلومات قرآنية أساسية.',levels:50,required:0},
+{id:'history',name:'السيرة والغزوات',icon:'🏛️',desc:'أحداث من السيرة النبوية والتاريخ الإسلامي.',levels:50,required:0},
+{id:'fiqh',name:'العبادات والفقه',icon:'🕌',desc:'أساسيات العبادات والمفاهيم الفقهية العامة.',levels:50,required:0},
+{id:'challenge',name:'تحدي العلماء',icon:'🔥',desc:'أسئلة أعلى صعوبة.',levels:100,required:250}
+];
 
-    function getUserTitle(score) {
-      if (score >= 150) return "حبر الأمة 👑";
-      if (score >= 100) return "عالم إسلامي 🌟";
-      if (score >= 50) return "باحث في السيرة ⚔️";
-      if (score >= 20) return "طالب علم 📖";
-      return "مبتدئ 🌙";
-    }
+const Q = (q,a,wrong,explain,source='مراجعة مرجعية مطلوبة') =>
+({q,a,wrong,explain,source});
 
-    // الأقسام والـ 10 أسئلة الحقيقية لكل مستوى
-    const categories = [
-      { id: 'sahaba', title: 'الصحابة الكرام ⚔️', desc: 'مواقف وبطولات صحابة رسول الله ﷺ', maxLevels: 50, reqScore: 0 },
-      { id: 'prophets', title: 'قصص الأنبياء 📜', desc: 'تعرف على أنبياء الله ومعجزاتهم', maxLevels: 50, reqScore: 0 },
-      { id: 'quran_miracles', title: 'معجزات القرآن ✨', desc: 'حقائق ودلائل إعجازية من كتاب الله', maxLevels: 50, reqScore: 0 },
-      { id: 'battles', title: 'الغزوات والمعارك 🛡️', desc: 'بطولات وأحداث الفتوحات الإسلامية', maxLevels: 50, reqScore: 0 },
-      { id: 'fiqh', title: 'الفقه والأحكام 🕌', desc: 'أحكام العبادات والمعاملات الميسرة', maxLevels: 50, reqScore: 0 },
-      { id: 'hard_quiz', title: 'تحدي العلماء والأسئلة الصعبة ⚔️🔥', desc: 'قسم الأبطال! يتطلب 50 نقطة و100 مستوى شديد الصعوبة!', maxLevels: 100, reqScore: 50 }
-    ];
+const BASE = {
 
-    // دالة توليد 10 أسئلة حقيقية متدرجة لكل ليفيل
-    function getLevelQuestions(catId, levelNum) {
-      let qList = [];
-      for (let i = 1; i <= 10; i++) {
-        qList.push({
-          q: `[${catId} - مستوى ${levelNum}] السؤال ${i}: ما هي الإجابة الصحيحة لهذا السؤال الشرعي أو التاريخي؟`,
-          options: ["الإجابة الصحيحة الموثقة ✨", "خيار غير صحيح أ", "خيار غير صحيح ب", "خيار غير صحيح ج"],
-          answer: 0,
-          proof: "الدليل الشرعي والسبب موثق من أمهات الكتب والسنة النبوية."
-        });
-      }
-      return qList;
-    }
+companions:[
+Q('من أول الخلفاء الراشدين؟','أبو بكر الصديق',['عمر بن الخطاب','عثمان بن عفان','علي بن أبي طالب'],'تولى أبو بكر الخلافة بعد وفاة النبي محمد ﷺ.','كتب السيرة والتاريخ الإسلامي'),
+Q('من الصحابي الملقب بالفاروق؟','عمر بن الخطاب',['أبو عبيدة بن الجراح','بلال بن رباح','سعد بن أبي وقاص'],'اشتهر عمر بن الخطاب بلقب الفاروق.','كتب التراجم'),
+Q('من الصحابي الذي عُرف بمؤذن الرسول ﷺ؟','بلال بن رباح',['زيد بن ثابت','خالد بن الوليد','أبو هريرة'],'بلال بن رباح من أشهر مؤذني الإسلام.','كتب السيرة'),
+Q('من الصحابي المعروف بلقب ذي النورين؟','عثمان بن عفان',['علي بن أبي طالب','طلحة بن عبيد الله','الزبير بن العوام'],'اشتهر عثمان بن عفان بلقب ذي النورين.','كتب التراجم'),
+Q('من ابن عم النبي ﷺ وزوج فاطمة رضي الله عنها؟','علي بن أبي طالب',['عبد الله بن عباس','جعفر بن أبي طالب','زيد بن حارثة'],'علي بن أبي طالب ابن عم النبي وزوج ابنته فاطمة.','كتب السيرة'),
+Q('من الصحابي الذي لُقّب بأمين الأمة؟','أبو عبيدة بن الجراح',['أبو الدرداء','سلمان الفارسي','عبد الرحمن بن عوف'],'ورد لقب أمين هذه الأمة لأبي عبيدة بن الجراح.','كتب الحديث والتراجم'),
+Q('من الصحابي المعروف بكثرة رواية الحديث؟','أبو هريرة',['أبو جهل','أمية بن خلف','عتبة بن ربيعة'],'أبو هريرة من أكثر الصحابة رواية للحديث.','كتب الحديث'),
+Q('من الصحابي الذي جمع القرآن في عهد أبي بكر بأمره؟','زيد بن ثابت',['خالد بن الوليد','بلال بن رباح','سعد بن معاذ'],'كُلّف زيد بن ثابت بجمع القرآن في عهد أبي بكر.','صحيح البخاري، كتاب فضائل القرآن'),
+Q('من الصحابي الذي اشتهر بلقب سيف الله المسلول؟','خالد بن الوليد',['حمزة بن عبد المطلب','مصعب بن عمير','عبد الله بن مسعود'],'اشتهر خالد بن الوليد بهذا اللقب.','كتب السيرة'),
+Q('من الصحابي الذي كان من السابقين إلى الإسلام واشتهر برحلتي الحبشة؟','جعفر بن أبي طالب',['أبو سفيان بن حرب','عمرو بن العاص','معاوية بن أبي سفيان'],'كان جعفر من المتحدثين باسم المسلمين في الحبشة وفق كتب السيرة.','كتب السيرة')
+],
 
-    let currentCat = null, currentLevel = 1, currentQuestions = [], currentQIndex = 0, counter = 0, timer = null, timeLeft = 15;
+prophets:[
+Q('من النبي الذي ابتلعه الحوت؟','يونس عليه السلام',['أيوب عليه السلام','هود عليه السلام','صالح عليه السلام'],'تذكر سورة الصافات قصة يونس عليه السلام والحوت.','القرآن الكريم: الصافات 139-148'),
+Q('من النبي الذي كلّمه الله تكليمًا؟','موسى عليه السلام',['إبراهيم عليه السلام','يوسف عليه السلام','إدريس عليه السلام'],'ورد ذكر تكليم الله لموسى في القرآن.','القرآن الكريم: النساء 164'),
+Q('من النبي الذي بنى السفينة بأمر الله؟','نوح عليه السلام',['لوط عليه السلام','شعيب عليه السلام','زكريا عليه السلام'],'أمر الله نوحًا بصنع الفلك.','القرآن الكريم: هود 37'),
+Q('من النبي الذي أُلقي في النار فجعلها الله بردًا وسلامًا؟','إبراهيم عليه السلام',['إسماعيل عليه السلام','يعقوب عليه السلام','داود عليه السلام'],'وردت القصة في سورة الأنبياء.','القرآن الكريم: الأنبياء 69'),
+Q('من النبي الذي فُسرت له الرؤى في قصة مصر؟','يوسف عليه السلام',['هارون عليه السلام','إلياس عليه السلام','يحيى عليه السلام'],'تتناول سورة يوسف تفسير الرؤى وأحداث مصر.','القرآن الكريم: سورة يوسف'),
+Q('من النبي الذي آتاه الله الزبور؟','داود عليه السلام',['سليمان عليه السلام','عيسى عليه السلام','محمد ﷺ'],'ذكر القرآن أن الله آتى داود زبورًا.','القرآن الكريم: النساء 163'),
+Q('من النبي الذي أُرسل إلى قوم عاد؟','هود عليه السلام',['صالح عليه السلام','شعيب عليه السلام','لوط عليه السلام'],'تذكر سورة هود قصة هود مع عاد.','القرآن الكريم: هود 50'),
+Q('من النبي الذي أُرسل إلى قوم ثمود؟','صالح عليه السلام',['هود عليه السلام','إسماعيل عليه السلام','ذو الكفل عليه السلام'],'تذكر سورة الأعراف قصة صالح وثمود.','القرآن الكريم: الأعراف 73'),
+Q('من النبي الذي كان أبًا ليحيى عليه السلام؟','زكريا عليه السلام',['إبراهيم عليه السلام','يعقوب عليه السلام','عمران'],'تذكر سورة مريم دعاء زكريا وبشارة يحيى.','القرآن الكريم: سورة مريم'),
+Q('من النبي الذي رفعه الله إليه وفق القرآن؟','عيسى عليه السلام',['هارون عليه السلام','شعيب عليه السلام','لوط عليه السلام'],'ورد في القرآن: «بل رفعه الله إليه».','القرآن الكريم: النساء 158')
+],
 
-    window.onload = () => {
-      if(currentUser) {
-        document.getElementById('login-screen').classList.add('hidden');
-        document.getElementById('app-header').classList.remove('hidden');
-        document.getElementById('main-content').classList.remove('hidden');
-        document.getElementById('welcome-msg').innerText = `أهلاً، ${currentUser}`;
-        updateScoreUI();
-        renderCats();
-      }
-    };
+quran:[
+Q('كم عدد سور القرآن الكريم؟','114 سورة',['110 سور','112 سورة','120 سورة'],'المصحف المتداول يضم 114 سورة.','المصحف الشريف'),
+Q('ما السورة التي تُسمّى أم الكتاب؟','سورة الفاتحة',['سورة البقرة','سورة الإخلاص','سورة الناس'],'من أسماء الفاتحة أم الكتاب.','صحيح البخاري، كتاب التفسير'),
+Q('ما أطول سورة في القرآن الكريم؟','سورة البقرة',['سورة آل عمران','سورة النساء','سورة المائدة'],'سورة البقرة هي أطول سور القرآن.','المصحف الشريف'),
+Q('ما أقصر سورة في القرآن من حيث عدد الآيات؟','سورة الكوثر',['سورة العصر','سورة الإخلاص','سورة النصر'],'سورة الكوثر تتكون من ثلاث آيات.','المصحف الشريف'),
+Q('في أي سورة توجد آية الكرسي؟','سورة البقرة',['سورة آل عمران','سورة الرحمن','سورة الملك'],'آية الكرسي هي الآية 255 من سورة البقرة.','القرآن الكريم: البقرة 255'),
+Q('ما السورة التي لا تبدأ بالبسملة؟','سورة التوبة',['سورة الأنفال','سورة النمل','سورة يونس'],'سورة التوبة لا تبدأ بالبسملة في المصحف.','المصحف الشريف'),
+Q('ما السورة التي وردت فيها البسملة مرتين؟','سورة النمل',['سورة مريم','سورة يوسف','سورة الكهف'],'تبدأ بالبسملة وترد البسملة ضمن رسالة سليمان.','القرآن الكريم: النمل 30'),
+Q('ما أول سورة في ترتيب المصحف؟','سورة الفاتحة',['سورة البقرة','سورة العلق','سورة الناس'],'الفاتحة هي أول سور المصحف ترتيبًا.','المصحف الشريف'),
+Q('ما آخر سورة في ترتيب المصحف؟','سورة الناس',['سورة الفلق','سورة الإخلاص','سورة الكوثر'],'الناس هي آخر سور المصحف ترتيبًا.','المصحف الشريف'),
+Q('ما السورة التي سُمّيت باسم امرأة؟','سورة مريم',['سورة فاطر','سورة النور','سورة الأحزاب'],'سورة مريم سُمّيت باسم مريم عليها السلام.','المصحف الشريف')
+],
 
-    function updateScoreUI() {
-      document.getElementById('user-score').innerText = userScore;
-      document.getElementById('user-title').innerText = getUserTitle(userScore);
-    }
+history:[
+Q('إلى أي مدينة هاجر النبي ﷺ من مكة؟','المدينة المنورة',['الطائف','دمشق','القدس'],'هاجر النبي ﷺ إلى المدينة المنورة.','كتب السيرة'),
+Q('ما اسم الغار الذي نزل فيه الوحي أول مرة؟','غار حراء',['غار ثور','غار أحد','غار النورين'],'بدأ نزول الوحي في غار حراء.','صحيح البخاري، بدء الوحي'),
+Q('ما أول غزوة كبرى وقعت بين المسلمين وقريش؟','غزوة بدر',['غزوة أحد','غزوة الخندق','غزوة حنين'],'وقعت بدر في السنة الثانية للهجرة.','كتب السيرة'),
+Q('في أي غزوة خالف بعض الرماة أمر النبي ﷺ؟','غزوة أحد',['غزوة بدر','غزوة تبوك','غزوة خيبر'],'تذكر كتب السيرة أحداث الرماة في غزوة أحد.','كتب السيرة'),
+Q('ما اسم الصلح الذي عُقد بين المسلمين وقريش في السنة السادسة للهجرة؟','صلح الحديبية',['صلح العقبة','صلح الجعرانة','صلح تبوك'],'عُقد صلح الحديبية في السنة السادسة للهجرة.','كتب السيرة'),
+Q('في أي سنة هجرية فُتحت مكة؟','السنة الثامنة للهجرة',['السنة السادسة','السنة السابعة','السنة العاشرة'],'كان فتح مكة في رمضان من السنة الثامنة للهجرة.','كتب السيرة'),
+Q('ما القبلة الأولى للمسلمين؟','بيت المقدس',['الكعبة منذ بداية الدعوة','المسجد النبوي','مسجد قباء'],'كانت القبلة أولًا نحو بيت المقدس ثم حُوّلت إلى الكعبة.','القرآن الكريم: البقرة 142-150'),
+Q('ما اسم البيعة التي تمت قبل الهجرة مع أهل يثرب؟','بيعة العقبة',['بيعة الرضوان فقط','بيعة الشجرة في مكة','بيعة بدر'],'كانت بيعتا العقبة من مقدمات الهجرة.','كتب السيرة'),
+Q('ما اسم المسجد الذي أسّسه النبي ﷺ عند وصوله إلى قباء؟','مسجد قباء',['المسجد الأقصى','مسجد القبلتين','مسجد الخيف'],'وصل النبي ﷺ إلى قباء قبل دخوله المدينة.','كتب السيرة'),
+Q('ما المعركة التي عُرفت بحفر الخندق حول المدينة؟','غزوة الخندق / الأحزاب',['غزوة بدر','غزوة مؤتة','غزوة حنين'],'حُفر الخندق للدفاع عن المدينة في غزوة الأحزاب.','كتب السيرة')
+],
 
-    function login() {
-      const name = document.getElementById('username-input').value.trim();
-      if(name) {
-        localStorage.setItem('q_user', name);
-        location.reload();
-      }
-    }
+fiqh:[
+Q('كم عدد الصلوات المفروضة في اليوم والليلة؟','خمس صلوات',['ثلاث صلوات','أربع صلوات','ست صلوات'],'الصلوات المفروضة خمس في اليوم والليلة.','أحاديث فرض الصلاة'),
+Q('ما الشهر الذي يصومه المسلمون فرضًا؟','رمضان',['شعبان كله','شوال كله','محرم كله'],'صيام رمضان فرض على المسلم المستطيع.','القرآن الكريم: البقرة 183'),
+Q('إلى أي جهة يتوجه المسلم في الصلاة؟','نحو الكعبة المشرفة',['نحو المسجد النبوي دائمًا','نحو جبل عرفات','نحو أي جهة مع القدرة'],'القبلة هي المسجد الحرام.','القرآن الكريم: البقرة 144'),
+Q('ما العبادة التي تتضمن الوقوف بعرفة في وقت مخصوص؟','الحج',['العمرة فقط','الاعتكاف','الزكاة'],'الوقوف بعرفة ركن أساسي من أركان الحج.','أحاديث الحج'),
+Q('ما اسم الطهارة التي تكون بالماء قبل الصلاة عند الحدث الأصغر؟','الوضوء',['التيمم فقط','الغسل دائمًا','الاستنجاء فقط'],'الوضوء من شروط صحة الصلاة عند وجوبه.','القرآن الكريم: المائدة 6'),
+Q('ماذا يفعل من تعذّر عليه استعمال الماء بشروط التيمم؟','يتيمم بالصعيد الطيب',['يترك الصلاة دائمًا','يصلي بلا طهارة في كل حال','يعيد الوضوء بالماء غير المتاح'],'شُرع التيمم عند فقد الماء أو تعذر استعماله وفق ضوابطه.','القرآن الكريم: المائدة 6'),
+Q('ما الركن الذي يبدأ به المسلم الصلاة؟','تكبيرة الإحرام',['التسليم','التشهد الأخير','دعاء الاستفتاح'],'تبدأ الصلاة بتكبيرة الإحرام.','أحاديث صفة الصلاة'),
+Q('ما الزكاة التي تُخرج عند ختام رمضان بشروطها؟','زكاة الفطر',['زكاة التجارة فقط','كفارة اليمين','صدقة التطوع فقط'],'شرعت زكاة الفطر في نهاية رمضان.','أحاديث زكاة الفطر'),
+Q('ما اسم النداء الذي يُعلن دخول وقت الصلاة؟','الأذان',['الإقامة فقط','الخطبة','التلبية'],'الأذان إعلام بدخول وقت الصلاة.','كتب الفقه'),
+Q('ما الركن الذي يكون فيه المسلم متجهًا إلى القبلة ويضع جبهته على الأرض؟','السجود',['الركوع','القيام','التشهد'],'السجود من أركان الصلاة.','أحاديث صفة الصلاة')
+],
 
-    function renderCats() {
-      const grid = document.getElementById('categories-grid');
-      grid.innerHTML = '';
-      categories.forEach(c => {
-        const isLocked = userScore < c.reqScore;
-        grid.innerHTML += `
-          <div class="category-card ${isLocked ? 'locked' : ''}" onclick="${isLocked ? `alert('عفواً! هذا القسم يتطلب وصولك إلى ${c.reqScore} نقطة لفتحه!')` : `openLevels('${c.id}')`}">
-            ${isLocked ? `<span class="lock-badge">🔒 يتطلب ${c.reqScore} نقطة</span>` : ''}
-            <h3>${c.title}</h3>
-            <p style="color:#94a3b8; font-size:0.85rem;">${c.desc}</p>
-            <small style="color:#f59e0b; display:block; margin-top:8px;">يتكون من ${c.maxLevels} مستوى (مرتبة بالترتيب)</small>
-          </div>`;
-      });
-    }
+challenge:[
+Q('ما السورة التي ورد فيها ذكر غزوة حنين صراحةً؟','سورة التوبة',['سورة الأنفال','سورة الفتح','سورة محمد'],'ورد ذكر يوم حنين في سورة التوبة، الآية 25.','القرآن الكريم: التوبة 25'),
+Q('في أي سورة وردت قصة أصحاب الأخدود؟','سورة البروج',['سورة الفجر','سورة الشمس','سورة البلد'],'تتناول سورة البروج أصحاب الأخدود.','القرآن الكريم: سورة البروج'),
+Q('ما اسم الصحابي الذي أشار بحفر الخندق وفق المشهور في كتب السيرة؟','سلمان الفارسي',['حذيفة بن اليمان','المقداد بن عمرو','عبد الله بن رواحة'],'تنسب كتب السيرة اقتراح الخندق إلى سلمان الفارسي.','كتب السيرة'),
+Q('ما اسم الغزوة التي وقعت في السنة التاسعة للهجرة وتوجه فيها المسلمون شمالًا؟','غزوة تبوك',['غزوة بدر','غزوة أحد','غزوة خيبر'],'كانت غزوة تبوك في السنة التاسعة للهجرة.','كتب السيرة'),
+Q('ما السورة التي وردت فيها قصة ذي القرنين؟','سورة الكهف',['سورة الإسراء','سورة القصص','سورة سبأ'],'وردت قصة ذي القرنين في سورة الكهف.','القرآن الكريم: الكهف 83-98'),
+Q('ما اسم أم المؤمنين التي روت حديث بدء الوحي عن النبي ﷺ؟','عائشة رضي الله عنها',['حفصة رضي الله عنها','أم سلمة رضي الله عنها','جويرية رضي الله عنها'],'يروي البخاري حديث بدء الوحي عن عائشة رضي الله عنها.','صحيح البخاري، بدء الوحي'),
+Q('ما السورة التي وردت فيها آية الدَّين، أطول آية في القرآن؟','سورة البقرة',['سورة النساء','سورة المائدة','سورة التوبة'],'آية الدين هي الآية 282 من سورة البقرة.','القرآن الكريم: البقرة 282'),
+Q('ما اسم المعركة التي استشهد فيها زيد بن حارثة وجعفر بن أبي طالب وعبد الله بن رواحة؟','غزوة مؤتة',['غزوة اليرموك','غزوة القادسية','غزوة حنين'],'استشهد القادة الثلاثة في معركة مؤتة.','كتب السيرة'),
+Q('ما السورة التي تحمل اسم معدن؟','سورة الحديد',['سورة الذهب','سورة الفضة','سورة النحاس'],'الحديد اسم سورة في القرآن الكريم.','المصحف الشريف'),
+Q('ما اسم السورة التي افتتحت بقسم بالتين والزيتون؟','سورة التين',['سورة الضحى','سورة العلق','سورة البلد'],'تبدأ سورة التين بالقسم بالتين والزيتون.','القرآن الكريم: سورة التين')
+]
+};
 
-    function openLevels(id) {
-      currentCat = categories.find(x => x.id === id);
-      document.getElementById('main-content').classList.add('hidden');
-      document.getElementById('levels-screen').classList.remove('hidden');
-      document.getElementById('levels-title').innerText = `${currentCat.title} - المستويات`;
+const TEMPLATES = [
+q => `أيّ الخيارات التالية يجيب عن السؤال: ${q.q}`,
+q => `اختر الإجابة الصحيحة: ${q.q}`,
+q => `اختبر معلوماتك: ${q.q}`,
+q => `من خلال المعلومات الإسلامية الأساسية، ${q.q}`
+];
 
-      const unlockedMax = maxUnlockedLevels[currentCat.id] || 1;
-      const container = document.getElementById('levels-container');
-      container.innerHTML = '';
+let allQuestions = {};
+let currentCat = null;
+let currentLevel = 1;
+let quizQuestions = [];
+let questionIndex = 0;
+let correctCount = 0;
+let answered = false;
 
-      for (let i = 1; i <= currentCat.maxLevels; i++) {
-        const isUnlocked = i <= unlockedMax;
-        container.innerHTML += `
-          <button class="level-btn ${isUnlocked ? 'unlocked' : 'locked'}" 
-            onclick="${isUnlocked ? `startLevel(${i})` : `alert('يجب إنهاء المستوى السابق أولاً لفتح هذا المستوى!')`}">
-            ${isUnlocked ? `Lvl ${i}` : `🔒 ${i}`}
-          </button>`;
-      }
-    }
+let state = JSON.parse(localStorage.getItem('islamicQuizStateV2') || 'null') ||
+{score:0,completed:{},used:{},unlocked:{}};
 
-    function startLevel(lvlNum) {
-      currentLevel = lvlNum;
-      currentQuestions = getLevelQuestions(currentCat.id, currentLevel);
-      currentQIndex = 0;
-      document.getElementById('levels-screen').classList.add('hidden');
-      document.getElementById('quiz-screen').classList.remove('hidden');
-      loadQ();
-    }
+function save(){
+localStorage.setItem('islamicQuizStateV2',JSON.stringify(state));
+}
 
-    function loadQ() {
-      document.getElementById('explanation-container').classList.add('hidden');
-      const qData = currentQuestions[currentQIndex];
-      document.getElementById('q-meta').innerText = `المستوى ${currentLevel} | السؤال ${currentQIndex + 1} من 10`;
-      document.getElementById('q-text').innerText = qData.q;
-      document.getElementById('progress-fill').style.width = `${((currentQIndex)/10)*100}%`;
+function shuffle(arr){
+let a=arr.slice();
+for(let i=a.length-1;i>0;i--){
+let j=Math.floor(Math.random()*(i+1));
+[a[i],a[j]]=[a[j],a[i]];
+}
+return a;
+}
 
-      const optsDiv = document.getElementById('options-container');
-      optsDiv.innerHTML = '';
-      qData.options.forEach((opt, idx) => {
-        optsDiv.innerHTML += `<button class="option-btn" onclick="checkAns(${idx}, this)">${opt}</button>`;
-      });
+function buildBank(){
+for(const cat of CATEGORIES){
+const base=BASE[cat.id];
+let list=[];
+const total=cat.levels*10;
 
-      startTimer();
-    }
+for(let i=0;i<total;i++){
+const src=base[i%base.length];
+const variant=Math.floor(i/base.length);
+const qtext=variant===0?src.q:TEMPLATES[variant%TEMPLATES.length](src);
+const opts=shuffle([src.a,...src.wrong]);
 
-    function startTimer() {
-      clearInterval(timer);
-      timeLeft = 15;
-      document.getElementById('timer-display').innerText = `⏱️ ${timeLeft} ثانية`;
-      timer = setInterval(() => {
-        timeLeft--;
-        document.getElementById('timer-display').innerText = `⏱️ ${timeLeft} ثانية`;
-        if (timeLeft <= 0) {
-          clearInterval(timer);
-          handleTimeOut();
-        }
-      }, 1000);
-    }
+list.push({
+id:`${cat.id}-${i+1}`,
+q:qtext,
+a:src.a,
+options:opts,
+explain:src.explain,
+source:src.source,
+baseKey:`${cat.id}-${i%base.length}`
+});
+}
+allQuestions[cat.id]=list;
+}
+}
 
-    function handleTimeOut() {
-      const qData = currentQuestions[currentQIndex];
-      const allBtns = document.querySelectorAll('.option-btn');
-      allBtns.forEach(b => b.disabled = true);
-      allBtns[qData.answer].classList.add('correct');
-      playSound('wrong');
-      
-      document.getElementById('exp-text').innerText = "انتهى الوقت! " + qData.proof;
-      document.getElementById('explanation-container').classList.remove('hidden');
-    }
+function show(id){
+['home','levels','quiz','result'].forEach(x=>{
+document.getElementById(x).classList.toggle('hidden',x!==id);
+});
+}
 
-    function checkAns(selected, btn) {
-      clearInterval(timer);
-      const qData = currentQuestions[currentQIndex];
-      const allBtns = document.querySelectorAll('.option-btn');
-      allBtns.forEach(b => b.disabled = true);
+function goHome(){
+show('home');
+renderHome();
+}
 
-      if(selected === qData.answer) {
-        btn.classList.add('correct');
-        playSound('correct');
-        userScore += 2; // نقطتان لكل سؤال
-        localStorage.setItem('q_score', userScore);
-        updateScoreUI();
-      } else {
-        btn.classList.add('wrong');
-        playSound('wrong');
-        allBtns[qData.answer].classList.add('correct');
-      }
+function renderHome(){
+document.getElementById('score').textContent=state.score;
+document.getElementById('completed').textContent=Object.keys(state.completed).length;
+document.getElementById('bankCount').textContent=
+Object.values(allQuestions).reduce((n,a)=>n+a.length,0).toLocaleString('ar-EG');
 
-      document.getElementById('exp-text').innerText = qData.proof;
-      document.getElementById('explanation-container').classList.remove('hidden');
-    }
+const root=document.getElementById('categories');
+root.innerHTML='';
 
-    function nextStep() {
-      counter++;
-      if(counter % 3 === 0) {
-        document.getElementById('salawat-modal').classList.remove('hidden');
-      } else {
-        proceedNextQ();
-      }
-    }
+CATEGORIES.forEach(c=>{
+const locked=state.score<c.required;
+const done=Object.keys(state.completed).filter(k=>k.startsWith(c.id+'-')).length;
+const el=document.createElement('article');
+el.className='category';
+el.innerHTML=`
+<h3>${c.icon} ${c.name}</h3>
+<p>${c.desc}</p>
+<span class="pill">${c.levels} مستوى · ${c.levels*10} سؤالًا معروضًا</span>
+<p>المكتمل: ${done}/${c.levels}</p>
+<button ${locked?'disabled':''} onclick="openLevels('${c.id}')">
+${locked?`مقفول · يحتاج ${c.required} نقطة`:'دخول القسم'}
+</button>`;
+root.appendChild(el);
+});
+}
 
-    function closeSalawat() {
-      document.getElementById('salawat-modal').classList.add('hidden');
-      proceedNextQ();
-    }
+function openLevels(id){
+currentCat=CATEGORIES.find(c=>c.id===id);
+show('levels');
+document.getElementById('levelsTitle').textContent=currentCat.icon+' '+currentCat.name;
+document.getElementById('levelsDesc').textContent=currentCat.desc;
+renderLevels();
+}
 
-    function proceedNextQ() {
-      currentQIndex++;
-      if(currentQIndex < 10) {
-        loadQ();
-      } else {
-        // إكمال المستوى بنجاح فتح المستوى التالي
-        completedLevelsCount++;
-        localStorage.setItem('q_completed_total', completedLevelsCount);
+function renderLevels(){
+const root=document.getElementById('levelsGrid');
+root.innerHTML='';
 
-        let nextLvl = currentLevel + 1;
-        if (nextLvl <= currentCat.maxLevels && nextLvl > (maxUnlockedLevels[currentCat.id] || 1)) {
-          maxUnlockedLevels[currentCat.id] = nextLvl;
-          localStorage.setItem('q_unlocked', JSON.stringify(maxUnlockedLevels));
-        }
+for(let n=1;n<=currentCat.levels;n++){
+const key=`${currentCat.id}-${n}`;
+const done=!!state.completed[key];
+const unlocked=n===1||!!state.unlocked[key]||!!state.completed[`${currentCat.id}-${n-1}`];
+const b=document.createElement('button');
+b.className=done?'gold':'';
+b.textContent=(done?'✓ ':'')+'المستوى '+n;
+b.disabled=!unlocked;
+b.onclick=()=>startLevel(n);
+root.appendChild(b);
+}
+}
 
-        let bonusMsg = "";
-        if (completedLevelsCount % 2 === 0) {
-          userScore += 5; // بونص 5 نقاط عند إكمال مستويين
-          localStorage.setItem('q_score', userScore);
-          updateScoreUI();
-          bonusMsg = " 🎁 مبروك! حصلت على 5 نقاط بونص لإكمال مستويين!";
-        }
+function startLevel(level){
+currentLevel=level;
+questionIndex=0;
+correctCount=0;
+answered=false;
 
-        document.getElementById('quiz-screen').classList.add('hidden');
-        document.getElementById('result-summary').innerText = `أهلاً يا ${currentUser}! أنهيت المستوى ${currentLevel} بنجاح وفتحت المستوى التالي 🔓. مجموع نقاطك: ${userScore}.${bonusMsg}`;
-        document.getElementById('result-screen').classList.remove('hidden');
-      }
-    }
+const list=allQuestions[currentCat.id];
+const used=state.used[currentCat.id]||[];
+let available=list.filter(q=>!used.includes(q.id));
 
-    function shareOnWhatsApp() {
-      const text = encodeURIComponent(`أنا أختبر معلوماتي الإسلامية وأجمعت ${userScore} نقطة ورتبتي [${getUserTitle(userScore)}] في مسابقة المعرفة الإسلامية! 🌙✨ هل تستطيع التغلب عليّ؟`);
-      window.open(`https://api.whatsapp.com/send?text=${text}`, '_blank');
-    }
+if(available.length<10){
+available=list.slice();
+state.used[currentCat.id]=[];
+}
 
-    function backToLevels() {
-      document.getElementById('quiz-screen').classList.add('hidden');
-      openLevels(currentCat.id);
-    }
+quizQuestions=shuffle(available).slice(0,10);
 
-    function backToLevelsFromModal() {
-      document.getElementById('result-screen').classList.add('hidden');
-      openLevels(currentCat.id);
-    }
+state.used[currentCat.id]=[
+...(state.used[currentCat.id]||[]),
+...quizQuestions.map(q=>q.id)
+];
+save();
 
-    function backToHome() {
-      document.getElementById('levels-screen').classList.add('hidden');
-      document.getElementById('main-content').classList.remove('hidden');
-      renderCats();
-    }
-  </script>
+document.getElementById('quizMeta').textContent=`${currentCat.name} · المستوى ${level}`;
+document.getElementById('quizScore').textContent=state.score;
+show('quiz');
+renderQuestion();
+}
+
+function renderQuestion(){
+const q=quizQuestions[questionIndex];
+answered=false;
+document.getElementById('qCounter').textContent=`السؤال ${questionIndex+1} من ${quizQuestions.length}`;
+document.getElementById('bar').style.width=`${questionIndex/quizQuestions.length*100}%`;
+document.getElementById('questionText').textContent=q.q;
+
+const root=document.getElementById('answers');
+root.innerHTML='';
+
+q.options.forEach(opt=>{
+const b=document.createElement('button');
+b.className='answer';
+b.textContent=opt;
+b.onclick=()=>chooseAnswer(opt,b);
+root.appendChild(b);
+});
+
+document.getElementById('feedback').classList.add('hidden');
+document.getElementById('nextBtn').classList.add('hidden');
+}
+
+function chooseAnswer(opt,btn){
+if(answered)return;
+answered=true;
+
+const q=quizQuestions[questionIndex];
+
+document.querySelectorAll('.answer').forEach(b=>{
+b.disabled=true;
+if(b.textContent===q.a)b.classList.add('correct');
+});
+
+const ok=opt===q.a;
+
+if(ok){
+correctCount++;
+state.score+=5;
+document.getElementById('quizScore').textContent=state.score;
+document.getElementById('score').textContent=state.score;
+}else{
+btn.classList.add('wrong');
+}
+
+const f=document.getElementById('feedback');
+f.classList.remove('hidden');
+f.innerHTML=`
+<strong>${ok?'إجابة صحيحة ✓':'إجابة غير صحيحة ✗'}</strong><br>
+الإجابة: ${q.a}<br>
+${q.explain}<br>
+<span class="small">مرجع للمراجعة: ${q.source}. راجع المصدر قبل اعتماد السؤال للنشر.</span>`;
+
+document.getElementById('nextBtn').textContent=
+questionIndex===quizQuestions.length-1?'عرض النتيجة':'السؤال التالي ←';
+
+document.getElementById('nextBtn').classList.remove('hidden');
+save();
+}
+
+function nextQuestion(){
+if(questionIndex<quizQuestions.length-1){
+questionIndex++;
+renderQuestion();
+}else{
+finishLevel();
+}
+}
+
+function finishLevel(){
+const key=`${currentCat.id}-${currentLevel}`;
+const wasDone=!!state.completed[key];
+
+state.completed[key]=true;
+state.unlocked[`${currentCat.id}-${currentLevel+1}`]=true;
+
+const bonus=wasDone?0:10;
+state.score+=bonus;
+save();
+
+show('result');
+document.getElementById('resultTitle').textContent=
+correctCount>=8?'ممتاز! أداء قوي 🎉':'أحسنت، استمر في التعلّم';
+
+document.getElementById('resultScore').textContent=`${correctCount}/10`;
+document.getElementById('resultText').textContent=
+`أجبت بشكل صحيح عن ${correctCount} من 10. ${
+bonus?'حصلت على 10 نقاط مكافأة لإكمال المستوى لأول مرة.':'أعدت المستوى؛ لم تُضف مكافأة الإكمال مرة أخرى.'
+} نقاطك الآن: ${state.score}.`;
+}
+
+function backToLevels(){
+show('levels');
+renderLevels();
+}
+
+function quitQuiz(){
+if(confirm('هل تريد الخروج؟ لن تُحتسب نتيجة هذا المستوى.')){
+backToLevels();
+}
+}
+
+buildBank();
+renderHome();
+</script>
 </body>
 </html>
