@@ -3,7 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#0b1220"><meta name="description" content="مسابقة معرفة إسلامية عربية مع أسئلة فريدة وتقدم محفوظ محليًا."><title>مسابقة المعرفة الإسلامية | تحدي المعرفة</title>
+<meta name="theme-color" content="#0b1220">
+<meta name="description" content="مسابقة معرفة إسلامية عربية مع أسئلة فريدة وتقدم محفوظ محليًا.">
+<title>مسابقة المعرفة الإسلامية | تحدي المعرفة</title>
 <style>
 :root{--bg:#0b1220;--card:#131f32;--card2:#192941;--green:#28c76f;--gold:#ffd166;--blue:#56b6ff;--text:#f4f7fb;--muted:#a9b8cc;--red:#ff6b6b;--line:#2a3d58;--soft:#0e1929}
 body.light{--bg:#f3f6fc;--card:#ffffff;--card2:#edf2fa;--green:#16894b;--gold:#ffca42;--blue:#2374c6;--text:#172337;--muted:#5b687c;--red:#c83f4d;--line:#d6dfec;--soft:#f4f7fb}
@@ -14,8 +16,16 @@ h1{margin:0 0 8px;font-size:clamp(22px,4vw,34px)}header p{margin:0;color:var(--m
 .wrap{width:min(1050px,94%);margin:22px auto 50px}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:18px}.stat,.panel,.category,.question-card{background:linear-gradient(145deg,var(--card),var(--card2));border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:0 12px 32px #00000012}.stat{text-align:center}.stat b{display:block;font-size:24px;color:var(--gold);margin-top:5px}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}.category{transition:.2s}.category:hover{transform:translateY(-2px);border-color:var(--blue)}.category h3{margin:0 0 8px}.category p{color:var(--muted);min-height:40px;font-size:14px;line-height:1.7}.pill{display:inline-block;border-radius:30px;padding:5px 10px;background:var(--card2);color:var(--text);border:1px solid var(--line);font-size:12px;margin:3px 0 10px}
 button{border:0;border-radius:10px;padding:12px 16px;font:inherit;font-weight:bold;cursor:pointer;background:var(--green);color:#06140b}button:disabled{background:#46566b;color:#c1c9d4;cursor:not-allowed}.secondary{background:var(--card2);color:var(--text);border:1px solid var(--line)}.gold{background:var(--gold);color:#271b00}.hidden{display:none!important}.topline{display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:14px}.progress{height:9px;border-radius:20px;background:#24354b;overflow:hidden;margin:12px 0 18px}.progress div{height:100%;width:0;background:linear-gradient(90deg,var(--green),var(--blue));transition:width .25s}
-.question-card{padding:clamp(18px,4vw,30px)}.question-card h2{font-size:clamp(19px,3vw,27px);line-height:1.7;margin:0 0 20px}.answers{display:grid;gap:10px}.answer{background:var(--card2);color:var(--text);text-align:right;border:1px solid var(--line);line-height:1.6}.answer:hover:not(:disabled){border-color:var(--blue);background:#203a59}.answer.correct{background:#123c2a;border-color:var(--green)}.answer.wrong{background:#48232b;border-color:var(--red)}.feedback{margin-top:16px;padding:14px;border-radius:10px;line-height:1.8;background:var(--soft);color:var(--muted);border:1px solid var(--line)}.feedback strong{color:var(--gold)}.row{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}.small{font-size:13px;color:var(--muted);line-height:1.8}.notice{padding:14px;border-radius:12px;background:color-mix(in srgb,var(--gold) 16%,var(--card));border:1px solid color-mix(in srgb,var(--gold) 50%,var(--line));color:var(--text);line-height:1.8;margin:16px 0}.result{text-align:center}.result h2{color:var(--gold)}.result .big{font-size:44px;font-weight:bold;margin:10px}
-.headerline{width:min(1050px,94%);margin:auto;display:flex;justify-content:space-between;align-items:center;gap:12px;text-align:right}.headerline h1{margin:0 0 6px}.bird-reminder{position:fixed;z-index:50;left:16px;bottom:18px;display:flex;align-items:center;gap:8px;direction:rtl;animation:birdIn .6s ease-out;filter:drop-shadow(0 8px 18px #0002)}.bird-reminder.hide{animation:birdOut .45s ease-in forwards}.bird{font-size:36px;display:inline-block;animation:birdFloat 2.3s ease-in-out infinite}.bird-paper{background:#fff8d8;color:#493713;border:1px solid #e8cf77;border-radius:12px 12px 12px 3px;padding:10px 13px;font-weight:900;white-space:nowrap}.bird-close{background:var(--card);color:var(--text);border:1px solid var(--line);border-radius:50%;padding:0;width:26px;height:26px;line-height:1}.bank-badge{font-size:12px;color:var(--muted);margin-top:8px}
+.question-card{padding:clamp(18px,4vw,30px)}.question-card h2{font-size:clamp(19px,3vw,27px);line-height:1.7;margin:0 0 20px}.answers{display:grid;gap:10px}.answer{background:var(--card2);color:var(--text);text-align:right;border:1px solid var(--line);line-height:1.6}.answer:hover:not(:disabled){border-color:var(--blue);background:#203a59}.answer.correct{background:#123c2a;border-color:var(--green)}.answer.wrong{background:#48232b;border-color:var(--red)}.feedback{margin-top:16px;padding:14px;border-radius:10px;line-height:1.8;background:var(--soft);color:var(--muted);border:1px solid var(--line)}.feedback strong{color:var(--gold)}.row{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}.small{font-size:13px;color:var(--muted);line-height:1.8}.result{text-align:center}.result h2{color:var(--gold)}.result .big{font-size:44px;font-weight:bold;margin:10px}
+.headerline{width:min(1050px,94%);margin:auto;display:flex;justify-content:space-between;align-items:center;gap:12px;text-align:right}.headerline h1{margin:0 0 6px}
+/* تصميم محسّن وأنيق لتذكير الصلاة على النبي */
+.bird-reminder{position:fixed;z-index:50;left:16px;bottom:18px;display:flex;align-items:center;gap:8px;direction:rtl;animation:birdIn .6s ease-out;filter:drop-shadow(0 4px 12px #0004)}
+.bird-reminder.hide{animation:birdOut .45s ease-in forwards}
+.bird{font-size:30px;display:inline-block;animation:birdFloat 2.5s ease-in-out infinite}
+.bird-paper{background:var(--card);color:var(--gold);border:1px solid var(--line);border-radius:12px;padding:8px 12px;font-weight:bold;font-size:13px;white-space:nowrap;box-shadow:0 4px 10px #0003}
+.bird-close{background:transparent;color:var(--muted);border:0;border-radius:50%;padding:0;width:20px;height:20px;cursor:pointer;font-size:14px}
+.bird-close:hover{color:var(--text)}
+.bank-badge{font-size:12px;color:var(--muted);margin-top:8px}
 .levels-label{display:flex;align-items:center;gap:8px;font-size:clamp(20px,3vw,28px);font-weight:900;margin:6px 0 12px}
 .levels-label .tiny{font-size:13px;color:var(--muted);font-weight:700}
 .level-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(76px,1fr));gap:10px;margin:18px 0}
@@ -28,13 +38,23 @@ button{border:0;border-radius:10px;padding:12px 16px;font:inherit;font-weight:bo
 .level-tile.done{border-color:var(--green);background:linear-gradient(145deg,color-mix(in srgb,var(--green) 22%,var(--card)),var(--card2))}
 .level-tile.current{border:2px solid var(--gold)}
 .level-legend{display:flex;gap:12px;flex-wrap:wrap;color:var(--muted);font-size:12px;margin-top:8px}
-.level-legend span{display:inline-flex;align-items:center;gap:5px}.level-note{border:1px dashed var(--line);padding:12px;border-radius:12px;color:var(--muted);line-height:1.8}.answer:focus-visible,button:focus-visible{outline:3px solid var(--blue);outline-offset:2px}@keyframes birdIn{from{transform:translateY(30px) translateX(-25px);opacity:0}to{transform:none;opacity:1}}@keyframes birdOut{to{transform:translateY(40px) translateX(-30px);opacity:0;visibility:hidden}}@keyframes birdFloat{0%,100%{transform:translateY(0) rotate(-4deg)}50%{transform:translateY(-6px) rotate(4deg)}}
-@media(max-width:540px){.stats{grid-template-columns:1fr 1fr}.stats .stat:last-child{grid-column:1/-1}.category p{min-height:0}.headerline{align-items:flex-start}.headerline .secondary{font-size:12px;padding:9px}.bird-reminder{left:8px;bottom:10px}.bird{font-size:29px}.bird-paper{font-size:13px;padding:8px 10px}}
+.level-legend span{display:inline-flex;align-items:center;gap:5px}.level-note{border:1px dashed var(--line);padding:12px;border-radius:12px;color:var(--muted);line-height:1.8}.answer:focus-visible,button:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+@keyframes birdIn{from{transform:translateY(20px);opacity:0}to{transform:none;opacity:1}}
+@keyframes birdOut{to{transform:translateY(20px);opacity:0;visibility:hidden}}
+@keyframes birdFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+@media(max-width:540px){.stats{grid-template-columns:1fr 1fr}.stats .stat:last-child{grid-column:1/-1}.category p{min-height:0}.headerline{align-items:flex-start}.headerline .secondary{font-size:12px;padding:9px}}
 </style>
 </head>
 <body>
 <header><div class="headerline"><div><h1>📚 مسابقة المعرفة الإسلامية</h1><p>تعلّم • اختبر نفسك • ارتقِ بالمستوى</p></div><button id="themeBtn" class="secondary" type="button" onclick="toggleTheme()">☀️ الوضع الفاتح</button></div></header>
-<div id="birdReminder" class="bird-reminder" role="status" aria-live="polite"><span class="bird" aria-hidden="true">🐦</span><span class="bird-paper">صلِّ على النبي ﷺ</span><button class="bird-close" type="button" onclick="hideBird(true)" aria-label="إغلاق التذكير">×</button></div>
+
+<!-- التذكير المطور والأنيق -->
+<div id="birdReminder" class="bird-reminder" role="status" aria-live="polite">
+  <span class="bird" aria-hidden="true">✨</span>
+  <span class="bird-paper">صلِّ على النبي ﷺ</span>
+  <button class="bird-close" type="button" onclick="hideBird(true)" aria-label="إغلاق التذكير">×</button>
+</div>
+
 <main class="wrap">
   <section id="home">
     <div class="stats">
@@ -42,9 +62,8 @@ button{border:0;border-radius:10px;padding:12px 16px;font:inherit;font-weight:bo
       <div class="stat">✅ مستويات مكتملة<b id="completed">0</b></div>
       <div class="stat">🧠 بنك الأسئلة<b id="bankCount">0</b></div>
     </div>
-    <div class="notice"><strong>تنبيه بشفافية:</strong> البنك الحالي يحتوي على أسئلة مكتوبة بشكل مستقل ومصادر إرشادية لكل سؤال، وليس 3500 سؤالًا موثّقًا. لا نكرر السؤال لمجرد ملء المستويات؛ المستويات المتاحة تعتمد على عدد الأسئلة الفريدة الفعلي، ولا يُفتح المستوى التالي إلا بعد النجاح في 7 إجابات من 10. راجع المسائل الفقهية والأحاديث مع أهل الاختصاص قبل النشر.</div>
     <div class="grid" id="categories"></div>
-    <p class="small">حفظ التقدم محلي على نفس الجهاز والمتصفح. المسابقة تعمل كملف مستقل، ولا يوجد تسجيل دخول أو مزامنة بين الأجهزة. عدد المستويات الظاهر محسوب من الأسئلة الفريدة المتوفرة فعلًا.</p>
+    <p class="small" style="margin-top: 20px;">حفظ التقدم محلي على نفس الجهاز والمتصفح. المسابقة تعمل كملف مستقل، ولا يوجد تسجيل دخول أو مزامنة بين الأجهزة.</p>
   </section>
   <section id="levels" class="hidden">
     <div class="topline"><h2 id="levelsTitle">المستويات</h2><button class="secondary" onclick="goHome()">العودة للأقسام</button></div>
@@ -184,7 +203,7 @@ Q('ما اسم الجزء من الحديث الذي يحتوي على ألفا�
 Q('ما الحديث الذي يرفعه التابعي إلى النبي ﷺ دون ذكر الصحابي في الإسناد؟','الحديث المرسل',['الحديث المرفوع المتصل','الحديث المتواتر','الحديث الموقوف'],'المرسل في اصطلاح جمهور المحدثين ما رفعه التابعي إلى النبي ﷺ مع سقوط الصحابي.','كتب مصطلح الحديث؛ توجد تفصيلات اصطلاحية بين العلماء'),
 Q('ما اسم العلم الذي يبحث في أسباب ورود الحديث وفهم سياقه؟','أسباب ورود الحديث',['علم العَروض','علم الأنساب','علم الفرائض'],'يساعد هذا العلم على فهم المناسبة والسياق الذي ورد فيه الحديث.','كتب علوم الحديث'),
 Q('ما المقصود بتخريج الحديث؟','عزو الحديث إلى مصادره وبيان مواضعه وطرقه',['شرح المفردات فقط','جمع أسماء السور','ترتيب أبواب الفقه فقط'],'التخريج يحدد مواضع الحديث في المصادر ويبحث طرقه وأحكامه.','كتب مصطلح الحديث'),
-Q('ما اسم العلم الذي يبحث في الناسخ والمنسوخ من آيات الأحكام؟','علم الناسخ والمنسوخ',['علم القراءات فقط','علم البلاغة فقط','علم العَروض'],'يدرس هذا العلم النصوص التي ثبت فيها النسخ وشروطه وأحكامه.','كتب علوم القرآن وأصول الفقه'),
+Q('ما اسم العلم الذي يبحث في الناسخ والمنسوخ من آيات الأحكام؟','علم الناسخ والنسوخ',['علم القراءات فقط','علم البلاغة فقط','علم العَروض'],'يدرس هذا العلم النصوص التي ثبت فيها النسخ وشروطه وأحكامه.','كتب علوم القرآن وأصول الفقه'),
 Q('ما المقصود بالمكي في التقسيم المشهور لعلوم القرآن؟','ما نزل قبل الهجرة',['ما نزل في مكة فقط','ما نزل بعد الهجرة','ما نزل في موسم الحج فقط'],'المعيار المشهور عند علماء علوم القرآن هو زمن النزول قبل الهجرة أو بعدها، لا المكان وحده.','كتب علوم القرآن'),
 Q('ما المصطلح الأصولي الذي يعني إلحاق فرع بأصل في حكم لعلة جامعة؟','القياس',['الإجماع','الاستصحاب','النسخ'],'القياس من الأدلة الأصولية المعروفة، وله أركان وشروط تفصيلية.','كتب أصول الفقه'),
 Q('ما العنصر الذي يربط الأصل بالفرع في القياس؟','العلة',['السند','المتن','الناسخ'],'العلة هي الوصف الذي يدور عليه الحكم وفق ضوابط القياس.','كتب أصول الفقه'),
@@ -201,9 +220,9 @@ Q('ما المصطلح الذي يطلق على الحديث الذي اختل �
 Q('ما المقصود بعلم الرجال في خدمة الحديث؟','دراسة أحوال رواة الحديث وتراجمهم',['دراسة أوزان الشعر','دراسة رسم المصحف فقط','دراسة أحكام المواريث فقط'],'تراجم الرواة ومعرفة أحوالهم من أدوات نقد الأسانيد.','كتب الرجال والجرح والتعديل')
 ]};
 let allQuestions={},currentCat=null,currentLevel=1,quizQuestions=[],questionIndex=0,correctCount=0,answered=false;
-let state=JSON.parse(localStorage.getItem('islamicQuizStateV3')||'null')||{score:0,completed:{},used:{},unlocked:{},levelSets:{},answeredQuestions:{}};
+let state=JSON.parse(localStorage.getItem('islamicQuizStateV5')||'null')||{score:0,completed:{},used:{},unlocked:{},levelSets:{},answeredQuestions:{}};
 state.completed=state.completed||{};state.unlocked=state.unlocked||{};state.levelSets=state.levelSets||{};state.answeredQuestions=state.answeredQuestions||{};
-function save(){localStorage.setItem('islamicQuizStateV3',JSON.stringify(state));}
+function save(){localStorage.setItem('islamicQuizStateV5',JSON.stringify(state));}
 function shuffle(arr){let a=arr.slice();for(let i=a.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
 function buildBank(){
   for(const cat of CATEGORIES){
@@ -260,7 +279,7 @@ function renderLevels(){
   root.appendChild(b);
  }
  if(!(currentCat.availableLevels||0)){
-  const note=document.createElement('div');note.className='level-note';note.textContent='لسه مفيش 10 أسئلة فريدة كفاية لفتح مستوى هنا. لازم نضيف أسئلة جديدة بدل تكرار الأسئلة القديمة.';root.appendChild(note);
+  const note=document.createElement('div');note.className='level-note';note.textContent='لسه مفيش 10 أسئلة فريدة كفاية لفتح مستوى هنا.';root.appendChild(note);
  }
 }
 function startLevel(level){
@@ -271,11 +290,11 @@ function startLevel(level){
  }else{
    const already=new Set(Object.entries(state.levelSets||{}).filter(([k])=>k.startsWith(currentCat.id+'-')).flatMap(([,ids])=>ids));
    const available=shuffle(allQuestions[currentCat.id].filter(q=>!already.has(q.id)));
-   if(available.length<10){alert('مفيش 10 أسئلة جديدة كفاية للمستوى ده من غير تكرار. لازم نضيف أسئلة مستقلة للبنك الأول.');return;}
+   if(available.length<10){alert('مفيش 10 أسئلة جديدة كفاية للمستوى ده من غير تكرار.');return;}
    quizQuestions=available.slice(0,10);
    state.levelSets=state.levelSets||{};state.levelSets[key]=quizQuestions.map(q=>q.id);save();
  }
- if(quizQuestions.length!==10){alert('المستوى غير مكتمل. ارجع للقسم وأضف أسئلة كافية.');return;}
+ if(quizQuestions.length!==10){alert('المستوى غير مكتمل.');return;}
  document.getElementById('quizMeta').textContent=`${currentCat.name} · المستوى ${level}`;
  document.getElementById('quizScore').textContent=state.score;show('quiz');renderQuestion();
 }
@@ -291,7 +310,7 @@ function chooseAnswer(opt,btn){
  if(answered)return;answered=true;const q=quizQuestions[questionIndex];
  document.querySelectorAll('.answer').forEach(b=>{b.disabled=true;if(b.textContent===q.a)b.classList.add('correct')});
  const ok=opt===q.a;if(ok){correctCount++;state.answeredQuestions=state.answeredQuestions||{};if(!state.answeredQuestions[q.id]){state.score+=5;state.answeredQuestions[q.id]=true;}document.getElementById('quizScore').textContent=state.score;document.getElementById('score').textContent=state.score}else btn.classList.add('wrong');
- const f=document.getElementById('feedback');f.classList.remove('hidden');f.replaceChildren();const strong=document.createElement('strong');strong.textContent=ok?'إجابة صحيحة ✓':'إجابة غير صحيحة ✗';f.append(strong,document.createElement('br'));f.append(document.createTextNode(`الإجابة: ${q.a}`),document.createElement('br'),document.createTextNode(q.explain),document.createElement('br'));const src=document.createElement('span');src.className='small';src.textContent=`مرجع للمراجعة: ${q.source}. راجع المصدر قبل اعتماد السؤال للنشر.`;f.append(src);
+ const f=document.getElementById('feedback');f.classList.remove('hidden');f.replaceChildren();const strong=document.createElement('strong');strong.textContent=ok?'إجابة صحيحة ✓':'إجابة غير صحيحة ✗';f.append(strong,document.createElement('br'));f.append(document.createTextNode(`الإجابة: ${q.a}`),document.createElement('br'),document.createTextNode(q.explain),document.createElement('br'));const src=document.createElement('span');src.className='small';src.textContent=`مرجع للمراجعة: ${q.source}.`;f.append(src);
  document.getElementById('nextBtn').textContent=questionIndex===quizQuestions.length-1?'عرض النتيجة':'السؤال التالي ←';document.getElementById('nextBtn').classList.remove('hidden');save();
 }
 function nextQuestion(){if(questionIndex<quizQuestions.length-1){questionIndex++;renderQuestion()}else finishLevel()}
@@ -304,24 +323,22 @@ function finishLevel(){
    if(!wasDone){state.completed[key]=true;bonus=10;state.score+=bonus;}
    state.unlocked=state.unlocked||{};
    if(currentLevel<(currentCat.availableLevels||0))state.unlocked[`${currentCat.id}-${currentLevel+1}`]=true;
- }else{
-   // لازم ينجح في 7 من 10 على الأقل لفتح المستوى التالي.
-   // لا تُحتسب مكافأة إكمال ولا يُفتح المستوى التالي عند الرسوب.
  }
  save();
  show('result');
- document.getElementById('resultTitle').textContent=passed?(correctCount===10?'أسطوري! إجابات كاملة 🔥':'ممتاز! فتحت المستوى التالي 🎉':'لسه محتاج محاولة كمان 💪');
+ document.getElementById('resultTitle').textContent=passed?(correctCount===10?'أسطوري! إجابات كاملة 🔥':'ممتاز! فتحت المستوى التالي 🎉'):'لسه محتاج محاولة كمان 💪';
  document.getElementById('resultScore').textContent=`${correctCount}/10`;
- document.getElementById('resultText').textContent=passed?`نجحت لأنك أجبت عن ${correctCount} من 10 إجابات بشكل صحيح. ${bonus?`كسبت ${bonus} نقاط مكافأة لأول إكمال.`:'المستوى مكتمل من قبل، لذلك لم تحصل على مكافأة إكمال إضافية.'} نقاطك الآن: ${state.score}.`:`تحتاج إلى 7 إجابات صحيحة على الأقل من 10 للنجاح وفتح المستوى التالي. نتيجتك ${correctCount}/10. جرّب المستوى مرة أخرى، ولن تُخصم منك نقاط.`;
+ document.getElementById('resultText').textContent=passed?`نجحت لأنك أجبت عن ${correctCount} من 10 إجابات بشكل صحيح. ${bonus?`كسبت ${bonus} نقاط مكافأة لأول إكمال.`:''} نقاطك الآن: ${state.score}.`:`تحتاج إلى 7 إجابات صحيحة على الأقل من 10 للنجاح وفتح المستوى التالي. نتيجتك ${correctCount}/10. جرّب المستوى مرة أخرى.`;
 }
 function backToLevels(){show('levels');renderLevels()}
 function quitQuiz(){if(confirm('هل تريد الخروج؟ لن تُحتسب نتيجة هذا المستوى.'))backToLevels()}
 function toggleTheme(){document.body.classList.toggle('light');const light=document.body.classList.contains('light');localStorage.setItem('islamicQuizTheme',light?'light':'dark');document.getElementById('themeBtn').textContent=light?'🌙 الوضع الداكن':'☀️ الوضع الفاتح'}
+
 function hideBird(manual=false){const b=document.getElementById('birdReminder');if(!b)return;b.classList.add('hide');if(manual)localStorage.setItem('birdDismissedAt',String(Date.now()));setTimeout(()=>{b.style.display='none'},500)}
-function showBird(){const dismissed=Number(localStorage.getItem('birdDismissedAt')||0);if(Date.now()-dismissed<6*60*60*1000){document.getElementById('birdReminder').style.display='none';return;}const b=document.getElementById('birdReminder');b.style.display='flex';b.classList.remove('hide');setTimeout(()=>hideBird(false),6500)}
+
 const savedTheme=localStorage.getItem('islamicQuizTheme');if(savedTheme==='light'){document.body.classList.add('light');document.getElementById('themeBtn').textContent='🌙 الوضع الداكن'}
-// إزالة تخصيص الأسئلة المولدة القديم فقط؛ الحفاظ على النقاط والمستويات المكتملة.
 if(!state.levelSets)state.levelSets={};
-buildBank();renderHome();setTimeout(showBird,1800);setInterval(showBird,45*60*1000);
+buildBank();renderHome();
 </script>
-</body></html>
+</body>
+</html>
