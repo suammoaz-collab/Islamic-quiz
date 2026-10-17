@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>مسابقة المعرفة الإسلامية 🌙</title>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Tajawal', sans-serif; }
+    body { background: linear-gradient(135deg, #0f2027, #203a43, #2c5364); color: #fff; min-height: 100vh; direction: rtl; padding: 15px; }
+    .container { max-width: 650px; margin: 0 auto; }
+    .hidden { display: none !important; }
+    .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.85); display: flex; justify-content: center; align-items: center; z-index: 1000; padding: 20px; }
+    .modal-card { background: #1e293b; padding: 25px; border-radius: 20px; width: 100%; text-align: center; border: 1px solid #38bdf8; }
+    .modal-card input { width: 100%; padding: 12px; margin: 15px 0; border-radius: 10px; border: 1px solid #334155; background: #0f172a; color: #fff; font-size: 1rem; text-align: center; }
+    .btn { padding: 12px; border: none; border-radius: 12px; font-size: 1rem; font-weight: bold; cursor: pointer; width: 100%; background: #10b981; color: #fff; transition: 0.2s; }
+    .btn:active { transform: scale(0.98); }
+    .btn-whatsapp { background: #25d366; color: #fff; margin-top: 10px; }
+    .app-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; background: rgba(255,255,255,0.08); padding: 10px 15px; border-radius: 12px; flex-wrap: wrap; gap: 10px; }
+    .stat-badge { background: #f39c12; color: #111; padding: 5px 12px; border-radius: 20px; font-weight: bold; font-size: 0.85rem; }
+    .category-card { background: #1e293b; border: 1px solid #334155; border-radius: 16px; padding: 20px; text-align: center; margin-bottom: 15px; cursor: pointer; }
+    .category-card h3 { color: #38bdf8; margin: 10px 0 5px; }
+    .quiz-card { background: #1e293b; border-radius: 20px; padding: 20px; border: 1px solid #334155; }
+    .option-btn { background: #0f172a; border: 1px solid #334155; color: #fff; padding: 14px; border-radius: 12px; text-align: right; font-size: 1rem; cursor: pointer; width: 100%; margin-bottom: 10px; display: block; }
+    .option-btn.correct { background: #10b981 !important; border-color: #10b981; }
+    .option-btn.wrong { background: #ef4444 !important; border-color: #ef4444; }
+    .progress-bar { height: 8px; background: #334155; border-radius: 5px; margin-bottom: 15px; overflow: hidden; }
+    .progress-fill { height: 100%; background: #f59e0b; width: 0%; transition: 0.3s; }
+    .timer-text { color: #f59e0b; font-weight: bold; float: left; }
+    .explanation-box { background: #0f172a; border-right: 4px solid #38bdf8; padding: 15px; border-radius: 10px; margin-top: 15px; text-align: right; }
+    .explanation-box h4 { color: #38bdf8; margin-bottom: 5px; font-size: 0.95rem; }
+    .explanation-box p { font-size: 0.9rem; color: #cbd5e1; line-height: 1.5; }
+  </style>
+</head>
+<body>
+
+  <!-- شاشة التسجيل -->
+  <div id="login-screen" class="modal-overlay">
+    <div class="modal-card">
+      <div style="font-size: 3rem;">🌙</div>
+      <h2>مسابقة المعرفة الإسلامية</h2>
+      <p style="color: #94a3b8; font-size: 0.9rem; margin-top: 5px;">ادخل اسمك لتبدأ التحدي وتجمع النقاط!</p>
+      <input type="text" id="username-input" placeholder="اكتب اسمك هنا..." />
+      <button class="btn" onclick="login()">دخول 🚀</button>
+    </div>
+  </div>
+
+  <div class="container">
+    <!-- الهيدر والمعلومات -->
+    <header class="app-header hidden" id="app-header">
+      <span id="welcome-msg" style="font-weight: bold;">أهلاً بك</span>
+      <div style="display: flex; gap: 8px;">
+        <div class="stat-badge">⭐ <span id="user-score">0</span> نقطة</div>
+        <div class="stat-badge" style="background:#38bdf8; color:#0f172a;" id="user-title">مبتدئ</div>
+      </div>
+    </header>
+
+    <!-- الصفحة الرئيسية للأقسام -->
+    <main id="main-content" class="hidden">
+      <h2 style="text-align: center; margin-bottom: 15px;">اختر قسماً وابدأ التحدي ⚔️</h2>
+      <div id="categories-grid"></div>
+    </main>
+
+    <!-- شاشة الأسئلة -->
+    <section id="quiz-screen" class="hidden">
+      <button class="btn" style="background:#334155; margin-bottom: 15px; width: auto; padding: 8px 15px;" onclick="backToHome()">⬅️ رجوع للأقسام</button>
+      <div class="quiz-card">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+          <span id="q-meta" style="color: #94a3b8; font-size: 0.85rem;"></span>
+          <span id="timer-display" class="timer-text">⏱️ 15 ثانية</span>
+        </div>
+        <div class="progress-bar"><div id="progress-fill" class="progress-fill"></div></div>
+        
+        <h3 id="q-text" style="margin-bottom: 20px; font-size: 1.2rem;">السؤال هنا...</h3>
+        <div id="options-container"></div>
+
+        <!-- صندوق الشرح والسبب والدليل -->
+        <div id="explanation-container" class="explanation-box hidden">
+          <h4 id="exp-title">💡 التوضيح والدليل:</h4>
+          <p id="exp-text"></p>
+          <button class="btn" style="margin-top: 12px; background: #38bdf8; color: #0f172a;" onclick="nextStep()">السؤال التالي ➡️</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- شاشة نهاية القسم ومشاركة الواتساب -->
+    <section id="result-screen" class="modal-overlay hidden">
+      <div class="modal-card">
+        <div style="font-size: 3rem;">🏆</div>
+        <h2>أبدعت يا بطل!</h2>
+        <p id="result-summary" style="color: #cbd5e1; margin: 15px 0;"></p>
+        <button class="btn btn-whatsapp" onclick="shareOnWhatsApp()">💬 شارك نتيجتك على واتساب</button>
+        <button class="btn" style="margin-top: 10px; background: #334155;" onclick="backToHome()">العودة للأقسام الرئيسية</button>
+      </div>
+    </section>
+  </div>
+
+  <!-- نافذة الصلاة على النبي -->
+  <div id="salawat-modal" class="modal-overlay hidden">
+    <div class="modal-card" style="border-color: #f59e0b;">
+      <div style="font-size: 2.5rem;">✨</div>
+      <h2 style="color: #f59e0b; margin: 10px 0;">صلِّ على النبي الكريم</h2>
+      <p style="margin-bottom: 15px;">اللَّهُمَّ صَلِّ وَسَلِّمْ عَلَى نَبِيِّنَا مُحَمَّدٍ</p>
+      <button class="btn" onclick="closeSalawat()">عليه أفضل الصلاة والسلام 💖</button>
+    </div>
+  </div>
+
+  <script>
+    let currentUser = localStorage.getItem('q_user') || null;
+    let userScore = parseInt(localStorage.getItem('q_score')) || 0;
+    
+    // نظام الأصوات
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    function playSound(type) {
+      if (audioCtx.state === 'suspended') audioCtx.resume();
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      if (type === 'correct') {
+        osc.frequency.setValueAtTime(523.25, audioCtx.currentTime);
+        osc.frequency.setValueAtTime(659.25, audioCtx.currentTime + 0.1);
+        gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+      } else {
+        osc.frequency.setValueAtTime(220, audioCtx.currentTime);
+        osc.frequency.setValueAtTime(174.61, audioCtx.currentTime + 0.15);
+        gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+      }
+      osc.start();
+      osc.stop(audioCtx.currentTime + 0.3);
+    }
+
+    // تحديد اللقب حسب النقاط
+    function getUserTitle(score) {
+      if (score >= 50) return "عالم إسلامي 🌟";
+      if (score >= 30) return "باحث في السيرة ⚔️";
+      if (score >= 10) return "طالب علم 📖";
+      return "مبتدئ 🌙";
+    }
+
+    // بيانات الأسئلة مع الشرح والدليل
+    const categories = [
+      {
+        id: 'sahaba', title: 'الصحابة الكرام ⚔️', desc: 'مواقف وبطولات صحابة رسول الله ﷺ',
+        questions: [
+          { q: "من هو أول من أسلم من الرجال؟", options: ["أبو بكر الصديق", "عمر بن الخطاب", "علي بن أبي طالب", "عثمان بن عفان"], answer: 0, proof: "أجمع أهل السنة على أن أبو بكر الصديق رضي الله عنه هو أول من أسلم من الرجال الأحرار." },
+          { q: "ما هو لقب الصحابي خالد بن الوليد؟", options: ["أسد الله", "سيف الله المسلول", "أمين الأمة", "فاروق الأمة"], answer: 1, proof: "سماه النبي ﷺ 'سيف الله المسلول' بعد غزوة مؤتة." },
+          { q: "من هو الصحابي الذي اهتز لوفاته عرش الرحمن؟", options: ["سعد بن معاذ", "حمزة بن عبد المطلب", "مصعب بن عمير", "أنس بن مالك"], answer: 0, proof: "قال رسول الله ﷺ: «اهتز عرش الرحمن لوفاة سعد بن معاذ» [متفق عليه]." }
+        ]
+      },
+      {
+        id: 'prophets', title: 'قصص الأنبياء 📜', desc: 'تعرف على أنبياء الله ومعجزاتهم',
+        questions: [
+          { q: "من هو النبي الذي بنى السفينة بأمر الله؟", options: ["إبراهيم عليه السلام", "نوح عليه السلام", "موسى عليه السلام", "يونس عليه السلام"], answer: 1, proof: "قال تعالى في سورة هود: ﴿وَاصْنَعِ الْفُلْكَ بِأَعْيُنِنَا وَوَحْيِنَا﴾." },
+          { q: "ما هي معجزة نبي الله صالح عليه السلام؟", options: ["العصا", "الناقة", "إحياء الموتى", "شق البحر"], answer: 1, proof: "قال تعالى: ﴿هَذِهِ نَاقَةُ اللَّهِ لَكُمْ آيَةً﴾." }
+        ]
+      }
+    ];
+
+    let currentCat = null, currentQIndex = 0, counter = 0, timer = null, timeLeft = 15;
+
+    window.onload = () => {
+      if(currentUser) {
+        document.getElementById('login-screen').classList.add('hidden');
+        document.getElementById('app-header').classList.remove('hidden');
+        document.getElementById('main-content').classList.remove('hidden');
+        document.getElementById('welcome-msg').innerText = `أهلاً، ${currentUser}`;
+        updateScoreUI();
+        renderCats();
+      }
+    };
+
+    function updateScoreUI() {
+      document.getElementById('user-score').innerText = userScore;
+      document.getElementById('user-title').innerText = getUserTitle(userScore);
+    }
+
+    function login() {
+      const name = document.getElementById('username-input').value.trim();
+      if(name) {
+        localStorage.setItem('q_user', name);
+        location.reload();
+      }
+    }
+
+    function renderCats() {
+      const grid = document.getElementById('categories-grid');
+      grid.innerHTML = '';
+      categories.forEach(c => {
+        grid.innerHTML += `
+          <div class="category-card" onclick="startQuiz('${c.id}')">
+            <h3>${c.title}</h3>
+            <p style="color:#94a3b8; font-size:0.85rem;">${c.desc}</p>
+          </div>`;
+      });
+    }
+
+    function startQuiz(id) {
+      currentCat = categories.find(x => x.id === id);
+      currentQIndex = 0;
+      document.getElementById('main-content').classList.add('hidden');
+      document.getElementById('quiz-screen').classList.remove('hidden');
+      loadQ();
+    }
+
+    function loadQ() {
+      document.getElementById('explanation-container').classList.add('hidden');
+      const qData = currentCat.questions[currentQIndex];
+      document.getElementById('q-meta').innerText = `السؤال ${currentQIndex + 1} من ${currentCat.questions.length}`;
+      document.getElementById('q-text').innerText = qData.q;
+      document.getElementById('progress-fill').style.width = `${((currentQIndex)/currentCat.questions.length)*100}%`;
+
+      const optsDiv = document.getElementById('options-container');
+      optsDiv.innerHTML = '';
+      qData.options.forEach((opt, idx) => {
+        optsDiv.innerHTML += `<button class="option-btn" onclick="checkAns(${idx}, this)">${opt}</button>`;
+      });
+
+      startTimer();
+    }
+
+    function startTimer() {
+      clearInterval(timer);
+      timeLeft = 15;
+      document.getElementById('timer-display').innerText = `⏱️ ${timeLeft} ثانية`;
+      timer = setInterval(() => {
+        timeLeft--;
+        document.getElementById('timer-display').innerText = `⏱️ ${timeLeft} ثانية`;
+        if (timeLeft <= 0) {
+          clearInterval(timer);
+          handleTimeOut();
+        }
+      }, 1000);
+    }
+
+    function handleTimeOut() {
+      const qData = currentCat.questions[currentQIndex];
+      const allBtns = document.querySelectorAll('.option-btn');
+      allBtns.forEach(b => b.disabled = true);
+      allBtns[qData.answer].classList.add('correct');
+      playSound('wrong');
+      
+      document.getElementById('exp-text').innerText = "انتهى الوقت! " + qData.proof;
+      document.getElementById('explanation-container').classList.remove('hidden');
+    }
+
+    function checkAns(selected, btn) {
+      clearInterval(timer);
+      const qData = currentCat.questions[currentQIndex];
+      const allBtns = document.querySelectorAll('.option-btn');
+      allBtns.forEach(b => b.disabled = true);
+
+      if(selected === qData.answer) {
+        btn.classList.add('correct');
+        playSound('correct');
+        userScore += 10;
+        localStorage.setItem('q_score', userScore);
+        updateScoreUI();
+      } else {
+        btn.classList.add('wrong');
+        playSound('wrong');
+        allBtns[qData.answer].classList.add('correct');
+      }
+
+      document.getElementById('exp-text').innerText = qData.proof;
+      document.getElementById('explanation-container').classList.remove('hidden');
+    }
+
+    function nextStep() {
+      counter++;
+      if(counter % 3 === 0) {
+        document.getElementById('salawat-modal').classList.remove('hidden');
+      } else {
+        proceedNextQ();
+      }
+    }
+
+    function closeSalawat() {
+      document.getElementById('salawat-modal').classList.add('hidden');
+      proceedNextQ();
+    }
+
+    function proceedNextQ() {
+      currentQIndex++;
+      if(currentQIndex < currentCat.questions.length) {
+        loadQ();
+      } else {
+        document.getElementById('quiz-screen').classList.add('hidden');
+        document.getElementById('result-summary').innerText = `حققت مجموع نقاط بلغ: ${userScore} نقطة. لقبك الحالي: ${getUserTitle(userScore)}`;
+        document.getElementById('result-screen').classList.remove('hidden');
+      }
+    }
+
+    function shareOnWhatsApp() {
+      const text = encodeURIComponent(`أنا أختبر معلوماتي الإسلامية وأجمعت ${userScore} نقطة في مسابقة المعرفة الإسلامية! 🌙✨ هل تستطيع التغلب عليّ؟`);
+      window.open(`https://api.whatsapp.com/send?text=${text}`, '_blank');
+    }
+
+    function backToHome() {
+      document.getElementById('quiz-screen').classList.add('hidden');
+      document.getElementById('result-screen').classList.add('hidden');
+      document.getElementById('main-content').classList.remove('hidden');
+    }
+  </script>
+</body>
+</html>
